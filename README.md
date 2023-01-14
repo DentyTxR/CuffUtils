@@ -19,7 +19,7 @@ WIP, I have a few planned features for this plugin but I want more so please gib
 # Whether or not the plugin is enabled.
 is_enabled: true
 # Should debug logs be enabled?
-debug: true
+debug: false
 # Can detain players get shot?
 detain_player_take_dmg: true
 # Blacklist of roletypes that cannot damage a detain player
