@@ -19,7 +19,15 @@ namespace CuffUtilsNwAPI
         [Description("Blacklist of roletypes that cannot damage a detain player")]
         public List<RoleTypeId> BlacklistDetainDamageRole { get; set; } = new List<RoleTypeId>
         {
-            RoleTypeId.Spectator
+            RoleTypeId.Spectator,
+            RoleTypeId.ClassD,
+            RoleTypeId.Scientist
+        };
+
+        [Description("Whitelist of roletypes that can damage cuffed players. THIS WILL BYPASS ALL CHECKS")]
+        public List<RoleTypeId> WhitelistCuffDamageRole { get; set; } = new List<RoleTypeId>
+        {
+            RoleTypeId.Tutorial
         };
     }
 }

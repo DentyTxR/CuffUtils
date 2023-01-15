@@ -1,4 +1,5 @@
-﻿using PlayerStatsSystem;
+﻿using PlayerRoles.FirstPersonControl.NetworkMessages;
+using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -7,6 +8,8 @@ namespace CuffUtilsNwAPI
 {
     public class EventHandler
     {
+        private readonly Config _config = CuffUtils.Singleton.Config;
+
         [PluginEvent(ServerEventType.PlayerHandcuff)]
         public void PlayerCuffingEvent(Player player, Player target)
         {
@@ -21,18 +24,27 @@ namespace CuffUtilsNwAPI
         [PluginEvent(ServerEventType.PlayerDamage)]
         public bool PlayerDamagingEvent(Player player, Player attacker, DamageHandlerBase damageHandler)
         {
-            if (attacker == null || player == null)
+            if (player == null)
                 return false;
 
-            if (player.IsDisarmed && CuffUtils.Singleton.Config.BlacklistDetainDamageRole.Contains(attacker.Role))
+            if (attacker == null)
+                return true;
+
+            if (player.IsDisarmed)
             {
-                Log.Debug($"Attacker role is blacklisted {attacker.Role}");
-                return false;
+                if (_config.WhitelistCuffDamageRole.Contains(attacker.Role))
+                {
+                    Log.Debug($"Attacker role is whitelisted {attacker.Role}");
+                    return true;
+                } else if (_config.BlacklistDetainDamageRole.Contains(attacker.Role))
+                {
+                    Log.Debug($"Attacker role is blacklisted {attacker.Role}");
+                    return false;
+                }
+
+                if (_config.DetainPlayerTakeDmg == false)
+                    player.DamageManager.CanReceiveDamageFromPlayers = false;
             }
-
-            if (CuffUtils.Singleton.Config.DetainPlayerTakeDmg == false && player.IsDisarmed)
-                player.DamageManager.CanReceiveDamageFromPlayers = false;
-
             return true;
         }
     }
