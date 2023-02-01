@@ -9,7 +9,7 @@ namespace CuffUtilsNwAPI
     public class CuffUtils
     {
         public const string PluginName = "CuffUtils";
-        public const string PluginVersion = "1.3.0"; //Maj/Min/Build
+        public const string PluginVersion = "1.2.0"; //Maj/Min/Build
         public const string PluginDesc = "Multi-purpose plugin that creates many features around cuffing events to help moderation/gameplay changes";
 
         public static CuffUtils Singleton;
