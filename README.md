@@ -11,10 +11,9 @@ WIP, I have a few planned features for this plugin but I want more so please gib
 ### Current Features
  - Disallow damage to detain players
  - Blacklist certain RoleTypes from damaging detain players
-
+ - Remove cuffs when the detained player moves too far from the detainer (The best way to describe how `remove_cuffs_distance` is measured is by feet I would say? I would test it before using it on your main server)
 
 ### Default Config
-
 ```yml
 # Whether or not the plugin is enabled.
 is_enabled: true
@@ -25,6 +24,16 @@ detain_player_take_dmg: true
 # Blacklist of roletypes that cannot damage a detain player
 blacklist_detain_damage_role:
 - Spectator
+- ClassD
+- Scientist
+# Whitelist of roletypes that can damage cuffed players. THIS WILL BYPASS ALL CHECKS
+whitelist_cuff_damage_role:
+- Tutorial
+# Should detained players get uncuffed when they move too far away from cuffer?
+remove_cuffs_distance_feature: false
+# How far the detained player should be from the detainer to get uncuffed
+remove_cuffs_distance: 10
+
 ```
 
 ### RoleTypes
