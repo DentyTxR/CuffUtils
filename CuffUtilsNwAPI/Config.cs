@@ -29,5 +29,11 @@ namespace CuffUtilsNwAPI
         {
             RoleTypeId.Tutorial
         };
+
+        [Description("Should detained players get uncuffed when they move too far away from cuffer?")]
+        public bool EnableCuffRemoveOnDistance { get; set; } = false;
+
+        [Description("How far the detained player should be from the detainer to get uncuffed")]
+        public float CuffRemoveDistance { get; set; } = 10f;
     }
 }

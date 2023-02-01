@@ -1,5 +1,4 @@
-﻿using PlayerRoles.FirstPersonControl.NetworkMessages;
-using PlayerStatsSystem;
+﻿using PlayerStatsSystem;
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
@@ -13,12 +12,16 @@ namespace CuffUtilsNwAPI
         [PluginEvent(ServerEventType.PlayerHandcuff)]
         public void PlayerCuffingEvent(Player player, Player target)
         {
+            if (_config.EnableCuffRemoveOnDistance)
+            {
+                DistanceComponent distanceComponent = target.GameObject.AddComponent<DistanceComponent>();
+                distanceComponent.Target = target;
+            }
         }
 
         [PluginEvent(ServerEventType.PlayerRemoveHandcuffs)]
         public void PlayerUncuffingEvent(Player player, Player target)
         {
-
         }
 
         [PluginEvent(ServerEventType.PlayerDamage)]
