@@ -10,7 +10,7 @@ namespace CuffUtilsNwAPI
         private readonly Config _config = CuffUtils.Singleton.Config;
 
         [PluginEvent(ServerEventType.PlayerHandcuff)]
-        public void PlayerCuffingEvent(Player player, Player target)
+        public void PlayerCuffingEvent(Player player, Player target, bool state)
         {
             if (_config.EnableCuffRemoveOnDistance)
             {
@@ -20,7 +20,7 @@ namespace CuffUtilsNwAPI
         }
 
         [PluginEvent(ServerEventType.PlayerRemoveHandcuffs)]
-        public void PlayerUncuffingEvent(Player player, Player target)
+        public void PlayerUncuffingEvent(Player player, Player target, bool state)
         {
         }
 
