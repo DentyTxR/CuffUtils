@@ -2,6 +2,7 @@
 using PluginAPI.Core;
 using PluginAPI.Core.Attributes;
 using PluginAPI.Enums;
+using PluginAPI.Events;
 
 namespace CuffUtilsNwAPI
 {
@@ -9,44 +10,39 @@ namespace CuffUtilsNwAPI
     {
         private readonly Config _config = CuffUtils.Singleton.Config;
 
-        [PluginEvent(ServerEventType.PlayerHandcuff)]
-        public void PlayerCuffingEvent(Player player, Player target, bool state)
+        [PluginEvent]
+        public void PlayerCuffingEvent(PlayerHandcuffEvent ev)
         {
             if (_config.EnableCuffRemoveOnDistance)
             {
-                DistanceComponent distanceComponent = target.GameObject.AddComponent<DistanceComponent>();
-                distanceComponent.Target = target;
+                DistanceComponent distanceComponent = ev.Target.GameObject.AddComponent<DistanceComponent>();
+                distanceComponent.Target = ev.Target;
             }
         }
 
-        [PluginEvent(ServerEventType.PlayerRemoveHandcuffs)]
-        public void PlayerUncuffingEvent(Player player, Player target, bool state)
+        [PluginEvent]
+        public void PlayerUncuffingEvent(PlayerRemoveHandcuffsEvent ev)
         {
         }
 
-        [PluginEvent(ServerEventType.PlayerDamage)]
-        public bool PlayerDamagingEvent(Player player, Player attacker, DamageHandlerBase damageHandler)
+        [PluginEvent]
+        public bool PlayerDamagingEvent(PlayerDamageEvent ev)
         {
-            if (player == null)
-                return false;
 
-            if (attacker == null)
-                return true;
-
-            if (player.IsDisarmed)
+            if (ev.Target.IsDisarmed)
             {
-                if (_config.WhitelistCuffDamageRole.Contains(attacker.Role))
+                if (_config.WhitelistCuffDamageRole.Contains(ev.Player.Role))
                 {
-                    Log.Debug($"Attacker role is whitelisted {attacker.Role}");
+                    Log.Debug($"Attacker role is whitelisted {ev.Player.Role}");
                     return true;
-                } else if (_config.BlacklistDetainDamageRole.Contains(attacker.Role))
+                } else if (_config.BlacklistDetainDamageRole.Contains(ev.Player.Role))
                 {
-                    Log.Debug($"Attacker role is blacklisted {attacker.Role}");
+                    Log.Debug($"Attacker role is blacklisted {ev.Player.Role}");
                     return false;
                 }
 
                 if (_config.DetainPlayerTakeDmg == false)
-                    player.DamageManager.CanReceiveDamageFromPlayers = false;
+                    ev.Target.DamageManager.CanReceiveDamageFromPlayers = false;
             }
             return true;
         }
