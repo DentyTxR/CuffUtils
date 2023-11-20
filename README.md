@@ -1,4 +1,4 @@
-# CuffUtils W.I.P
+# CuffUtils W.I.P (EXILED only)
 
 ### Multi-purpose plugin that creates many features around cuffing events to help moderation/gameplay changes
 [![Github All Releases](https://img.shields.io/github/downloads/DentyTxR/CuffUtils/total.svg)]()
