@@ -33,7 +33,6 @@ whitelist_cuff_damage_role:
 remove_cuffs_distance_feature: false
 # How far the detained player should be from the detainer to get uncuffed
 remove_cuffs_distance: 10
-
 ```
 
 ### RoleTypes
