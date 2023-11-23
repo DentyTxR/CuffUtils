@@ -17,6 +17,9 @@ namespace CuffUtilsExiled
         [Description("Can detain players get shot?")]
         public bool DetainPlayerTakeDmg { get; set; } = true;
 
+        [Description("Can detain players get damaged by scps?")]
+        public bool DetainPlayerTakeScpDmg { get; set; } = true;
+
         [Description("Blacklist of roletypes that cannot damage a detain player")]
         public List<RoleTypeId> BlacklistDetainDamageRole { get; set; } = new List<RoleTypeId>
         {

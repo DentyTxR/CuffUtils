@@ -28,7 +28,10 @@ namespace CuffUtilsExiled
                     Log.Debug($"Attacker role is blacklisted {ev.Player.Role}");
                 }
 
-                if (CuffUtilsExiled.Singleton.Config.DetainPlayerTakeDmg == false)
+                if (ev.Attacker.Role.Side == Exiled.API.Enums.Side.Scp && !CuffUtilsExiled.Singleton.Config.DetainPlayerTakeScpDmg)
+                    ev.Amount = 0;
+
+                if (!CuffUtilsExiled.Singleton.Config.DetainPlayerTakeDmg)
                     ev.Amount = 0;
             }
         }
