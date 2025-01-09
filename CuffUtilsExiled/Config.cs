@@ -20,18 +20,19 @@ namespace CuffUtilsExiled
         [Description("Can detain players get damaged by scps?")]
         public bool DetainPlayerTakeScpDmg { get; set; } = true;
 
+        [Description("Can the cuffer damage the cuffed player?")]
+        public bool CanCufferDamageCuffed { get; set; } = true;
+
         [Description("Blacklist of roletypes that cannot damage a detain player")]
         public List<RoleTypeId> BlacklistDetainDamageRole { get; set; } = new List<RoleTypeId>
         {
             RoleTypeId.Spectator,
-            RoleTypeId.ClassD,
-            RoleTypeId.Scientist
         };
 
         [Description("Whitelist of roletypes that can damage cuffed players. THIS WILL BYPASS ALL CHECKS")]
         public List<RoleTypeId> WhitelistCuffDamageRole { get; set; } = new List<RoleTypeId>
         {
-            RoleTypeId.Tutorial
+            RoleTypeId.Spectator,
         };
 
         [Description("Should detained players get uncuffed when they move too far away from cuffer?")]

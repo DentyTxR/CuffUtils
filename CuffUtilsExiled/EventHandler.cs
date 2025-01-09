@@ -8,7 +8,7 @@ namespace CuffUtilsExiled
     {
         public void HandcuffingEvent(HandcuffingEventArgs ev)
         {
-            if (CuffUtilsExiled.Singleton.Config.EnableCuffRemoveOnDistance)
+            if (CuffUtilsExiled.Configs.EnableCuffRemoveOnDistance)
             {
                 DistanceComponent distanceComponent = ev.Target.GameObject.AddComponent<DistanceComponent>();
                 distanceComponent.Target = ev.Target;
@@ -17,21 +17,28 @@ namespace CuffUtilsExiled
 
         public void HurtingEvent(HurtingEventArgs ev)
         {
-            if (ev.Player.IsCuffed)
+            if (ev.Player.IsCuffed && ev.Attacker != null)
             {
-                if (CuffUtilsExiled.Singleton.Config.WhitelistCuffDamageRole.Contains(ev.Player.Role))
+                if (CuffUtilsExiled.Configs.CanCufferDamageCuffed && ev.Attacker == ev.Player.Cuffer) 
                 {
-                    Log.Debug($"Attacker role is whitelisted {ev.Player.Role}");
-                }
-                else if (CuffUtilsExiled.Singleton.Config.BlacklistDetainDamageRole.Contains(ev.Player.Role))
-                {
-                    Log.Debug($"Attacker role is blacklisted {ev.Player.Role}");
+                    Log.Debug($"Attacker is cuffer, allowing damage");
+                    ev.IsAllowed = true;
+                    return;
                 }
 
-                if (ev.Attacker.Role.Side == Exiled.API.Enums.Side.Scp && !CuffUtilsExiled.Singleton.Config.DetainPlayerTakeScpDmg)
-                    ev.Amount = 0;
+                var attackerRole = ev.Attacker.Role;
+                if (CuffUtilsExiled.Configs.WhitelistCuffDamageRole.Contains(attackerRole))
+                {
+                    Log.Debug($"Attacker role is whitelisted {attackerRole}");
+                    ev.IsAllowed = true;
+                }
+                else if (CuffUtilsExiled.Configs.BlacklistDetainDamageRole.Contains(attackerRole))
+                {
+                    Log.Debug($"Attacker role is blacklisted {attackerRole}");
+                    ev.IsAllowed = false;
+                }
 
-                if (!CuffUtilsExiled.Singleton.Config.DetainPlayerTakeDmg)
+                if (ev.Attacker.Role.Side == Exiled.API.Enums.Side.Scp && !CuffUtilsExiled.Configs.DetainPlayerTakeScpDmg || CuffUtilsExiled.Configs.DetainPlayerTakeDmg)
                     ev.Amount = 0;
             }
         }
