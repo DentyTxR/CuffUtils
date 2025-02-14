@@ -15,6 +15,15 @@ namespace CuffUtilsExiled
             }
         }
 
+        public void RemovingHandcuffsEvent(RemovingHandcuffsEventArgs ev)
+        {
+            if (CuffUtilsExiled.Configs.OnlyDetainerCanUncuff && ev.Player != ev.Target.Cuffer)
+            {
+                ev.IsAllowed = false;
+                return;
+            }
+        }
+
         public void HurtingEvent(HurtingEventArgs ev)
         {
             if (ev.Player.IsCuffed && ev.Attacker != null)

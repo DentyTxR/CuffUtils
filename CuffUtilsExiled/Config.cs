@@ -23,6 +23,9 @@ namespace CuffUtilsExiled
         [Description("Can the cuffer damage the cuffed player?")]
         public bool CanCufferDamageCuffed { get; set; } = true;
 
+        [Description("If true, only the player who detained them can remove their cuffs.")]
+        public bool OnlyDetainerCanUncuff { get; set; } = false;
+
         [Description("Blacklist of roletypes that cannot damage a detain player")]
         public List<RoleTypeId> BlacklistDetainDamageRole { get; set; } = new List<RoleTypeId>
         {

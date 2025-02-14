@@ -14,7 +14,7 @@ namespace CuffUtilsExiled
         public override string Author { get; } = "Denty";
         public override string Prefix { get; } = "CuffUtils";
         public override Version Version { get; } = new Version(1, 3, 0);
-        public override Version RequiredExiledVersion { get; } = new Version(8, 4, 1);
+        public override Version RequiredExiledVersion { get; } = new Version(9, 5, 0);
 
 
         public override void OnEnabled()
