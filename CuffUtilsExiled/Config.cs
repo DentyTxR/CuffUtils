@@ -20,7 +20,7 @@ namespace CuffUtilsExiled
         [Description("Can detain players get damaged by scps?")]
         public bool DetainPlayerTakeScpDmg { get; set; } = true;
 
-        [Description("Can the cuffer damage the cuffed player?")]
+        [Description("Can the cuffer damage the cuffed player? (This will bypass blacklist config)")]
         public bool CanCufferDamageCuffed { get; set; } = true;
 
         [Description("If true, only the player who detained them can remove their cuffs.")]
